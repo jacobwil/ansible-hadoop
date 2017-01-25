@@ -1,3 +1,12 @@
+# Some CentOS 7 machines don't ship with the EPEL repo
+- name: Add repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: http://ftp.osuosl.org/pub/fedora-epel/7/x86_64/
+    gpgkey: https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'
+
 - name: install_openblas
   yum: name={{ item }} state=installed
   with_items:
